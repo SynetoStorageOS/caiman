@@ -374,14 +374,8 @@ class TargetInstantiation(Checkpoint):
                         be_fs_zfs_properties_list.append(zfs_options)
 
             for be in be_list:
-                # Initialize the new BE.  If filesystems were specified with
-                # "in_be" set to True, add those filesystems to the init call
-                if be_fs_list:
-                    be.init(self.dry_run, pool_name=zpool.name,
-                            fs_list=be_fs_list,
-                            fs_zfs_properties=be_fs_zfs_properties_list)
-                else:
-                    be.init(self.dry_run, pool_name=zpool.name)
+                # Initialize the new BE.
+                be.init(self.dry_run, pool_name=zpool.name)
 
     def execute(self, dry_run=False):
         """ Primary execution method use by the Checkpoint parent class
