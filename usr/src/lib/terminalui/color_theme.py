@@ -78,7 +78,7 @@ class ColorTheme(object):
             self.border = border
         else:
             if has_colors:
-                curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_CYAN)
+                curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLACK)
                 self.border = curses.color_pair(2) | curses.A_BOLD
             else:
                 self.border = curses.A_REVERSE
@@ -113,7 +113,7 @@ class ColorTheme(object):
             self.list_field = list_field
         else:
             if has_colors:
-                curses.init_pair(5, curses.COLOR_WHITE, curses.COLOR_CYAN)
+                curses.init_pair(5, curses.COLOR_WHITE, curses.COLOR_BLACK)
                 self.list_field = curses.color_pair(5) | curses.A_BOLD
             else:
                 self.list_field = curses.A_REVERSE | curses.A_BOLD
@@ -139,7 +139,7 @@ class ColorTheme(object):
             self.progress_bar = progress_bar
         else:
             if has_colors:
-                curses.init_pair(7, curses.COLOR_WHITE, curses.COLOR_RED)
+                curses.init_pair(7, curses.COLOR_WHITE, curses.COLOR_BLUE)
                 self.progress_bar = curses.color_pair(7)
             else:
                 self.progress_bar = curses.A_REVERSE
