@@ -132,6 +132,10 @@ class TargetDiscovery(Checkpoint):
         drive_attributes = drive.attributes
         drive_media = drive.media
 
+        # if a drive does not have an OS path or feels like a diskette, run!
+        if (drive.attributes.opath == None or re.search('diskette', drive.attributes.opath)):
+            return None
+
         # if a drive is offline or down return None
         if drive_attributes.status == "DOWN":
             self.logger.debug("disk '%s' is offline" % new_disk.name)
