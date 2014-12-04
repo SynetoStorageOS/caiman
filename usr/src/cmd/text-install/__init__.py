@@ -23,7 +23,7 @@
 #
 
 '''
-Text / (n)Curses based UI for installing OmniOS
+Text / (n)Curses based UI for installing Syneto StorageOS
 '''
 
 import gettext
@@ -50,7 +50,7 @@ if console_type != SERIAL_CONSOLE:
 # Defined here to avoid circular import errors
 _ = gettext.translation("textinstall", "/usr/share/locale",
                         fallback=True).ugettext
-RELEASE = {"release": _("OmniOS")}
+RELEASE = {"release": _("StorageOS")}
 TUI_HELP = "/usr/share/text-install/help"
 
 # Localized values used by other files

@@ -62,7 +62,7 @@ SVCS=/bin/svcs
 TAIL=/bin/tail
 WC=/bin/wc
 
-DEFAULT_GRUB_TITLE="OmniOS"
+DEFAULT_GRUB_TITLE="Syneto StorageOS"
 VERSION="Illumos"
 HTTP_PORT=5555
 

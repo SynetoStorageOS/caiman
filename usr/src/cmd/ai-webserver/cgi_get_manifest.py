@@ -618,11 +618,11 @@ def list_manifests(service):
                                             align="center")))
             web_page = E.HTML(
                          E.HEAD(
-                            E.TITLE(_("OmniOS Automated "
+                            E.TITLE(_("Syneto StorageOS Automated "
                                       "Installation Webserver"))
                             ),
                          E.BODY(
-                            E.H1(_("Welcome to the OmniOS "
+                            E.H1(_("Welcome to the Syneto StorageOS "
                                    "Automated Installation webserver!")),
                             E.P(_("Service '%s' has the following "
                                 "manifests available, served to clients "
