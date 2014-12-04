@@ -47,21 +47,12 @@ menu_items=( \
 	cmds=("/usr/bin/text-install")					 \
 	do_subprocess="true"						 \
 	msg_str="")							 \
-    (menu_str=`gettext "Install Additional Drivers"`			 \
-	cmds=("/usr/bin/ddu-text")					 \
-	do_subprocess="true"						 \
-	msg_str="")							 \
     (menu_str=`gettext "Shell"`						 \
 	cmds=("$ROOT_SHELL")						 \
 	do_subprocess="true"						 \
 	msg_str=`gettext "To return to the main menu, exit the shell"`)	 \
-    # this string gets overwritten every time $TERM is updated
-    (menu_str=`gettext "Terminal type (currently "`"$TERM)"		 \
-	cmds=("prompt_for_term_type")					 \
-	do_subprocess="false"						 \
-	msg_str="")							 \
     (menu_str=`gettext "Reboot"`					 \
-	cmds=("/usr/sbin/reboot" "/usr/bin/sleep 10000")		 \
+	cmds=("/usr/sbin/shutdown -y -g 0 -i 6")			 \
 	do_subprocess="true"						 \
 	msg_str="")							 \
 )
