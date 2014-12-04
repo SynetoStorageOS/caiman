@@ -129,9 +129,9 @@ def be_init(new_be_name, new_be_pool, zfs_properties=None, nested_be=False,
                 fs_zfs_prop_array.append(prop_nvlist)
             nvlist.add_nvlist_array(const.BE_ATTR_FS_ZFS_PROPERTIES,
                                     fs_zfs_prop_array)
-        else:
-            nvlist.add_uint16(const.BE_ATTR_FS_NUM, 0)
-            nvlist.add_string_array(const.BE_ATTR_FS_NAMES, [])
+    else:
+        nvlist.add_uint16(const.BE_ATTR_FS_NUM, 0)
+        nvlist.add_string_array(const.BE_ATTR_FS_NAMES, [])
 
     # Add the shared datasets
     if shared_fs_list is not None and len(shared_fs_list) > 0:
