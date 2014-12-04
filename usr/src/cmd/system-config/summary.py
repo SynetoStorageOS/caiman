@@ -162,7 +162,7 @@ class SummaryScreen(BaseScreen):
 
         # hostname belongs to 'identity' group
         if configure_group(SC_GROUP_IDENTITY):
-            network_summary.append(_("  Computer name: %s") %
+            network_summary.append(_("  Storage Array name: %s") %
                                    self.sysconfig.system.hostname)
 
         if not configure_group(SC_GROUP_NETWORK):

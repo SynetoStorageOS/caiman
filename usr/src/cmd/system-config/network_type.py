@@ -52,10 +52,10 @@ class NetworkTypeScreen(BaseScreen):
     '''
     
     HEADER_TEXT = _("Network")
-    PARAGRAPH = _("Enter a name for this computer that identifies it on "
+    PARAGRAPH = _("Enter a name for this storage array that identifies it on "
                   "the network. It must be at least two characters. It "
                   "can contain letters, numbers, and minus signs (-).")
-    HOSTNAME_TEXT = _("Computer Name: ")
+    HOSTNAME_TEXT = _("Storage Array Name: ")
     NET_TYPE_TEXT = _("Select how the wired ethernet network "
                       "connection is configured.")
     AUTO_TEXT = _("Automatically")
@@ -143,9 +143,13 @@ class NetworkTypeScreen(BaseScreen):
         scrollable_columns = SystemInfo.MAX_HOSTNAME_LEN + 1
         hostname_area = WindowArea(1, cols, y_loc, self.hostfield_offset,
                                    scrollable_columns=scrollable_columns)
+        if self.sys_info.hostname == "unknown":
+            _text = "storage"
+        else:
+            _text = self.sys_info.hostname
         self.hostname = EditField(hostname_area, 
                                   window=self.center_win,
-                                  text=self.sys_info.hostname,
+                                  text=_text,
                                   validate=hostname_is_valid,
                                   error_win=self.main_win.error_line)
         self.hostname.item_key = None

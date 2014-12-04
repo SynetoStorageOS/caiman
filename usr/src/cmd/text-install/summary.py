@@ -146,7 +146,7 @@ class SummaryScreen(BaseScreen):
         
         '''
         network_summary = []
-        network_summary.append(_("  Computer name: %s") %
+        network_summary.append(_("  Storage Array name: %s") %
                                self.sysconfig.system.hostname)
         nic = self.sysconfig.nic
         
