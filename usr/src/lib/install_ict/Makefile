@@ -32,7 +32,8 @@ PYMODS		= __init__.py \
 		  initialize_smf.py \
 		  setup_swap.py \
                   transfer_files.py \
-		  update_dumpadm.py
+		  update_dumpadm.py \
+		  create_admin.py
 
 PYCMODS		= $(PYMODS:%.py=%.pyc)
 
