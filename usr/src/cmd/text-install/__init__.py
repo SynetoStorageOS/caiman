@@ -69,6 +69,7 @@ DEVICE_CONFIG = "device-config"
 APPLY_SYSCONFIG = "apply-sysconfig"
 BOOT_ARCHIVE = "boot-archive"
 TRANSFER_FILES = "transfer-ti-files"
+CREATE_ADMIN = "create-admin"
 CREATE_SNAPSHOT = "create-snapshot"
 
 import curses
@@ -306,6 +307,10 @@ def prepare_engine(options):
     eng.register_checkpoint(TRANSFER_FILES,
                             "solaris_install/ict/transfer_files",
                             "TransferFiles")
+
+    eng.register_checkpoint(CREATE_ADMIN,
+                            "solaris_install/ict/create_admin",
+                            "CreateAdmin")
 
     eng.register_checkpoint(CREATE_SNAPSHOT,
                             "solaris_install/ict/create_snapshot",

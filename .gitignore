@@ -113,3 +113,4 @@ usr/src/lib/install_manifest/dtd/.*dtd.1
 usr/src/simplelog
 usr/src/stream.log
 
+.idea
