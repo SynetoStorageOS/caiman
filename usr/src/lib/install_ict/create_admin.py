@@ -44,7 +44,7 @@ class CreateAdmin(ICT.ICTBaseClass):
         """
         super(CreateAdmin, self).__init__(name)
 
-    def mkdir_p(self, path):
+    def __mkdir_p(self, path):
         try:
             os.makedirs(path)
         except OSError as exception:
@@ -52,9 +52,8 @@ class CreateAdmin(ICT.ICTBaseClass):
                 raise
 
     def __append_line_to_file(self, dry_run, file, line):
-        if dry_run:
-            self.logger.debug('Appending "' + line + '" to ' + file)
-        else:
+        self.logger.debug('Appending "' + line + '" to ' + file)
+        if not dry_run:
             with open(self.target_dir + '/etc/passwd', 'a') as passwdFile:
                 passwdFile.write(self.PASSWD_ADMIN_USER + "\n")
 
@@ -84,25 +83,18 @@ class CreateAdmin(ICT.ICTBaseClass):
 
         # should we be more clever and use install_utils.Password class that
         # uses libc to encrypt passwords? this is good enough for now ...
-        self.__append_line_to_file(dry_run,
-            self.target_dir + '/etc/passwd',
-            self.PASSWD_ADMIN_USER)
-        self.__append_line_to_file(dry_run,
-            self.target_dir + '/etc/shadow',
-            self.SHADOW_ADMIN_USER)
+        self.__append_line_to_file(dry_run, self.target_dir + '/etc/passwd', self.PASSWD_ADMIN_USER)
+        self.__append_line_to_file(dry_run, self.target_dir + '/etc/shadow', self.SHADOW_ADMIN_USER)
 
-        if dry_run:
-            self.logger.debug('Creating admin home dir: ' + self.target_dir + self.ADMIN_HOMEDIR)
-        else:
-            self.mkdir_p(self.target_dir + self.ADMIN_HOMEDIR)
+        self.logger.debug('Creating admin home dir: ' + self.target_dir + self.ADMIN_HOMEDIR)
+        if not dry_run:
+            self.__mkdir_p(self.target_dir + self.ADMIN_HOMEDIR)
 
-        if dry_run:
-            self.logger.debug('Copying admin profile from /etc/skel: ' + self.target_dir + self.ADMIN_HOMEDIR + '/.profile')
-        else:
+        self.logger.debug('Copying admin profile from /etc/skel: ' + self.target_dir + self.ADMIN_HOMEDIR + '/.profile')
+        if not dry_run:
             shutil.copy(self.target_dir + '/etc/skel/.profile', self.target_dir + self.ADMIN_HOMEDIR + '/.profile')
 
-        if dry_run:
-            self.logger.debug('Changing ownership to admin user for: ' + self.target_dir + self.ADMIN_HOMEDIR)
-        else:
+        self.logger.debug('Changing ownership to admin user for: ' + self.target_dir + self.ADMIN_HOMEDIR)
+        if not dry_run:
             os.chown(self.target_dir + self.ADMIN_HOMEDIR, 100, 1)
             os.chown(self.target_dir + self.ADMIN_HOMEDIR + '/.profile', 100, 1)
