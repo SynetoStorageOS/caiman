@@ -146,6 +146,10 @@ file \
 file \
     path=usr/lib/python2.6/vendor-packages/solaris_install/ict/transfer_files.pyc
 file \
+    path=usr/lib/python2.6/vendor-packages/solaris_install/ict/create_admin.py
+file \
+    path=usr/lib/python2.6/vendor-packages/solaris_install/ict/create_admin.pyc
+file \
     path=usr/lib/python2.6/vendor-packages/solaris_install/ict/update_dumpadm.py
 file \
     path=usr/lib/python2.6/vendor-packages/solaris_install/ict/update_dumpadm.pyc
