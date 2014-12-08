@@ -54,8 +54,8 @@ class CreateAdmin(ICT.ICTBaseClass):
     def __append_line_to_file(self, dry_run, file, line):
         self.logger.debug('Appending "' + line + '" to ' + file)
         if not dry_run:
-            with open(self.target_dir + '/etc/passwd', 'a') as passwdFile:
-                passwdFile.write(self.PASSWD_ADMIN_USER + "\n")
+            with open(self.target_dir + file, 'a') as f:
+                f.write(line)
 
 
     def execute(self, dry_run=False):
