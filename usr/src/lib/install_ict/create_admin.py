@@ -50,7 +50,10 @@ end=^e
 home=^a
 insert=^b
 """
-
+    SUDOERS="""
+admin ALL=(ALL) NOPASSWD: ALL
+root ALL=(ALL) NOPASSWD: ALL
+"""
     """ ICT checkpoint creates the Syneto StorageOS administrator user """
     def __init__(self, name):
         """Initializes the class
@@ -97,10 +100,10 @@ insert=^b
         # parse_doc populates variables necessary to execute the checkpoint
         self.parse_doc()
 
-        # should we be more clever and use install_utils.Password class that
-        # uses libc to encrypt passwords? this is good enough for now ...
+        # Update authentication files
         self.__write_string_to_file(dry_run, self.target_dir + '/etc/passwd', self.PASSWD_ADMIN_USER, 'a')
         self.__write_string_to_file(dry_run, self.target_dir + '/etc/shadow', self.SHADOW_ADMIN_USER, 'a')
+        self.__write_string_to_file(dry_run, self.target_dir + '/etc/sudoers', self.SUDOERS, 'a')
 
         self.logger.debug('Creating admin home directory structure: ' + self.target_dir + self.ADMIN_HOMEDIR + '/.mc')
         if not dry_run:
