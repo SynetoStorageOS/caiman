@@ -34,6 +34,22 @@ class CreateAdmin(ICT.ICTBaseClass):
     ADMIN_UID_GID='100:1'
     PASSWD_ADMIN_USER="admin:x:100:1::/var/storage/admin:/usr/bin/bash"
     SHADOW_ADMIN_USER='admin:$5$XbQzmjCD$s0goZY3.4lpn.Ln.BG5Q4bVzC.XW95fNcYdPxgs27P1:16400::::::'
+    MC_INI="""[Midnight-Commander]
+editor_fake_half_tabs=1
+
+[Panels]
+navigate_with_arrows=true
+
+[terminal:sun-color]
+end=^e
+home=^a
+insert=^b
+
+[terminal:xterm]
+end=^e
+home=^a
+insert=^b
+"""
 
     """ ICT checkpoint creates the Syneto StorageOS administrator user """
     def __init__(self, name):
@@ -51,11 +67,11 @@ class CreateAdmin(ICT.ICTBaseClass):
             if exception.errno != errno.EEXIST:
                 raise
 
-    def __append_line_to_file(self, dry_run, file, line):
-        self.logger.debug('Appending "' + line + '" to ' + file)
+    def __write_string_to_file(self, dry_run, file, str, mode):
+        self.logger.debug('Appending "' + str + '" to ' + file)
         if not dry_run:
-            with open(file, 'a') as f:
-                f.write(line)
+            with open(file, mode) as f:
+                f.write(str)
 
 
     def execute(self, dry_run=False):
@@ -83,12 +99,14 @@ class CreateAdmin(ICT.ICTBaseClass):
 
         # should we be more clever and use install_utils.Password class that
         # uses libc to encrypt passwords? this is good enough for now ...
-        self.__append_line_to_file(dry_run, self.target_dir + '/etc/passwd', self.PASSWD_ADMIN_USER)
-        self.__append_line_to_file(dry_run, self.target_dir + '/etc/shadow', self.SHADOW_ADMIN_USER)
+        self.__write_string_to_file(dry_run, self.target_dir + '/etc/passwd', self.PASSWD_ADMIN_USER, 'a')
+        self.__write_string_to_file(dry_run, self.target_dir + '/etc/shadow', self.SHADOW_ADMIN_USER, 'a')
 
-        self.logger.debug('Creating admin home dir: ' + self.target_dir + self.ADMIN_HOMEDIR)
+        self.logger.debug('Creating admin home directory structure: ' + self.target_dir + self.ADMIN_HOMEDIR + '/.mc')
         if not dry_run:
-            self.__mkdir_p(self.target_dir + self.ADMIN_HOMEDIR)
+            self.__mkdir_p(self.target_dir + self.ADMIN_HOMEDIR + '/.mc')
+
+        self.__write_string_to_file(dry_run, self.target_dir + self.ADMIN_HOMEDIR + '/.mc/ini', self.MC_INI, 'w')
 
         self.logger.debug('Copying admin profile from /etc/skel: ' + self.target_dir + self.ADMIN_HOMEDIR + '/.profile')
         if not dry_run:
