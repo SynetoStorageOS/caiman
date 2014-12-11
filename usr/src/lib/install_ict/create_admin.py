@@ -76,6 +76,12 @@ root ALL=(ALL) NOPASSWD: ALL
             with open(file, mode) as f:
                 f.write(str)
 
+    def __recur_chown(self, starting_dir, uid, gid):
+        for root, dirs, files in os.walk(starting_dir):
+            os.chown(os.path.join(starting_dir, root), uid, gid)
+        for f in files:
+            os.chown(os.path.join(starting_dir, root, f), uid, gid)
+
 
     def execute(self, dry_run=False):
         """
@@ -117,5 +123,4 @@ root ALL=(ALL) NOPASSWD: ALL
 
         self.logger.debug('Changing ownership to admin user for: ' + self.target_dir + self.ADMIN_HOMEDIR)
         if not dry_run:
-            os.chown(self.target_dir + self.ADMIN_HOMEDIR, 100, 1)
-            os.chown(self.target_dir + self.ADMIN_HOMEDIR + '/.profile', 100, 1)
+            self.__recur_chown( self.target_dir + self.ADMIN_HOMEDIR, 100, 10)
