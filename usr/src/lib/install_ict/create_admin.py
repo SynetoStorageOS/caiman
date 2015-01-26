@@ -31,9 +31,6 @@ import solaris_install.ict as ICT
 
 class CreateAdmin(ICT.ICTBaseClass):
     ADMIN_HOMEDIR='/var/storage/admin'
-    ADMIN_UID_GID='100:1'
-    PASSWD_ADMIN_USER="admin:x:100:1::/var/storage/admin:/usr/bin/bash"
-    SHADOW_ADMIN_USER='admin:$5$XbQzmjCD$s0goZY3.4lpn.Ln.BG5Q4bVzC.XW95fNcYdPxgs27P1:16400::::::'
     MC_INI="""[Midnight-Commander]
 editor_fake_half_tabs=1
 
@@ -74,7 +71,7 @@ root ALL=(ALL) NOPASSWD: ALL
         self.logger.debug('Appending "' + str + '" to ' + file)
         if not dry_run:
             with open(file, mode) as f:
-                f.write(str)
+                f.write(str + "\n")
 
     def __recur_chown(self, starting_dir, uid, gid):
         for root, dirs, files in os.walk(starting_dir):
@@ -107,8 +104,6 @@ root ALL=(ALL) NOPASSWD: ALL
         self.parse_doc()
 
         # Update authentication files
-        self.__write_string_to_file(dry_run, self.target_dir + '/etc/passwd', self.PASSWD_ADMIN_USER, 'a')
-        self.__write_string_to_file(dry_run, self.target_dir + '/etc/shadow', self.SHADOW_ADMIN_USER, 'a')
         self.__write_string_to_file(dry_run, self.target_dir + '/etc/sudoers', self.SUDOERS, 'a')
 
         self.logger.debug('Creating admin home directory structure: ' + self.target_dir + self.ADMIN_HOMEDIR + '/.mc')
