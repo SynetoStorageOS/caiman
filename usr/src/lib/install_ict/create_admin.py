@@ -31,25 +31,10 @@ import solaris_install.ict as ICT
 
 class CreateAdmin(ICT.ICTBaseClass):
     ADMIN_HOMEDIR='/var/storage/admin'
-    MC_INI="""[Midnight-Commander]
-editor_fake_half_tabs=1
-
-[Panels]
-navigate_with_arrows=true
-
-[terminal:sun-color]
-end=^e
-home=^a
-insert=^b
-
-[terminal:xterm]
-end=^e
-home=^a
-insert=^b
-"""
     SUDOERS="""
 admin ALL=(ALL) NOPASSWD: ALL
 root ALL=(ALL) NOPASSWD: ALL
+zfssnap ALL=(ALL) NOPASSWD: ALL
 """
     """ ICT checkpoint creates the Syneto StorageOS administrator user """
     def __init__(self, name):
@@ -105,17 +90,3 @@ root ALL=(ALL) NOPASSWD: ALL
 
         # Update authentication files
         self.__write_string_to_file(dry_run, self.target_dir + '/etc/sudoers', self.SUDOERS, 'a')
-
-        self.logger.debug('Creating admin home directory structure: ' + self.target_dir + self.ADMIN_HOMEDIR + '/.mc')
-        if not dry_run:
-            self.__mkdir_p(self.target_dir + self.ADMIN_HOMEDIR + '/.mc')
-
-        self.__write_string_to_file(dry_run, self.target_dir + self.ADMIN_HOMEDIR + '/.mc/ini', self.MC_INI, 'w')
-
-        self.logger.debug('Copying admin profile from /etc/skel: ' + self.target_dir + self.ADMIN_HOMEDIR + '/.profile')
-        if not dry_run:
-            shutil.copy(self.target_dir + '/etc/skel/.profile', self.target_dir + self.ADMIN_HOMEDIR + '/.profile')
-
-        self.logger.debug('Changing ownership to admin user for: ' + self.target_dir + self.ADMIN_HOMEDIR)
-        if not dry_run:
-            self.__recur_chown( self.target_dir + self.ADMIN_HOMEDIR, 100, 10)
