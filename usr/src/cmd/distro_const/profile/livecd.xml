@@ -116,6 +116,7 @@
     <service name='application/x11/xfs' version='1' type='service'>
         <instance name='default' enabled='true'/>
     </service>
+
     <!--
         Make sure GNOME cache services for the live image are all disabled.
     -->
@@ -142,16 +143,17 @@
     <service name='application/desktop-cache/pixbuf-loaders-installer' version='1' type='service'>
         <instance name='default' enabled='false'/>
     </service>
+
     <!--
         Configure all StorageOs related services for the live image to be in their proper state
     -->
+    <service name='system/graphite-api' version='1' type='service'>
+        <instance name='default' enabled='false'/>
+    </service>
     <service name='system/collectd' version='1' type='service'>
         <instance name='default' enabled='false'/>
     </service>
     <service name='system/carbon' version='1' type='service'>
-        <instance name='default' enabled='false'/>
-    </service>
-    <service name='system/graphite-api' version='1' type='service'>
         <instance name='default' enabled='false'/>
     </service>
     <service name='system/syslog-ng' version='1' type='service'>
@@ -160,6 +162,7 @@
     <service name='system/remote-support' version='1' type='service'>
         <instance name='default' enabled='false'/>
     </service>
+
     <!--
         Increase the timeout to avoid error messages for the next 3 services.
         Default of 30 seconds is not enough when starting from a slow device
