@@ -162,6 +162,15 @@
     <service name='system/remote-support' version='1' type='service'>
         <instance name='default' enabled='false'/>
     </service>
+    <service name='application/show-welcome-message' version='1' type='service'>
+        <instance name='default' enabled='false'/>
+    </service>
+    <service name='network/http:apache' version='1' type='service'>
+        <instance name='default' enabled='false'/>
+    </service>
+    <service name='application/auto-adjust-dump-size' version='1' type='service'>
+        <instance name='default' enabled='false'/>
+    </service>
 
     <!--
         Increase the timeout to avoid error messages for the next 3 services.
