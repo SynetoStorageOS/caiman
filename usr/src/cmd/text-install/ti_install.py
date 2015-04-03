@@ -285,7 +285,7 @@ def do_ti_install(install_data, screen, update_status_func):
     # Fix up the timezone before we reboot
     default_init_loc = install_mountpoint + '/etc/default/init'
     tzfile = open(default_init_loc, 'w')
-    tzfile.write('TZ="' + timezone + '"\nCMASK=022\n')
+    tzfile.write('TZ="' + timezone + '"\nCMASK=022\nLANG=C\n')
     tzfile.close()
 
     # Write out the selected hostname
